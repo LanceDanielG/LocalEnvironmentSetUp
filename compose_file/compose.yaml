@@ -1,0 +1,45 @@
+networks:
+  todo-network:
+    driver: bridge
+
+services:
+  ui:
+    networks:
+      - todo-network
+    build: 
+      context: ./todoapp-ui
+      dockerfile: Dockerfile
+    container_name: ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./todoapp-ui:/usr/src/app/ui
+      - /usr/src/app/ui/node_modules
+    
+  api:
+    networks:
+      - todo-network
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api
+    restart: always
+    volumes:
+      - ./api:/var/www/html/api
+      - /var/www/html/api/vendor
+    command: >
+      sh -c "chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && php-fpm"
+  
+  webserver:
+    networks:
+      - todo-network
+    image: nginx:alpine
+    container_name: webserver
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./api:/var/www/html/api
+      - ./infra/nginx/conf.d:/etc/nginx/conf.d
+      - ./infra/nginx/error:/var/log/nginx
+    
