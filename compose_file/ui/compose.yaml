@@ -1,0 +1,17 @@
+networks:
+  network:
+    driver: bridge
+
+services:
+  ui:
+    networks:
+      - network
+    build: 
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./ui:/usr/src/app/ui
+      - /usr/src/app/ui/node_modules
