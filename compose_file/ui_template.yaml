@@ -6,7 +6,7 @@ services:
   ui:
     networks:
       - network
-    build: 
+    build:
       context: ./ui
       dockerfile: Dockerfile
     container_name: ui

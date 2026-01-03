@@ -1,0 +1,51 @@
+networks:
+  network:
+    driver: bridge
+
+services:
+  api:
+    networks:
+      - network
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api
+    restart: always
+    volumes:
+      - ./api:/var/www/html/api
+      - /var/www/html/api/vendor
+    environment:
+      - DB_HOST=db
+      - DB_PORT=__DB_PORT__
+      - DB_DATABASE=${DB_DATABASE:-project_db}
+      - DB_USERNAME=${DB_USERNAME:-user}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+
+  db:
+    networks:
+      - network
+    image: __DB_IMAGE__
+    container_name: db
+    restart: always
+    environment:
+      __DB_ENV__
+    ports:
+      - "__DB_PORT__:__DB_PORT__"
+    volumes:
+      - db_data:/var/lib/backend/data
+
+  webserver:
+    networks:
+      - network
+    image: nginx:alpine
+    container_name: webserver
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./api:/var/www/html/api
+      - ./infra/config/nginx/conf.d:/etc/nginx/conf.d
+      - ./infra/config/nginx/error:/var/log/nginx
+
+volumes:
+  db_data:

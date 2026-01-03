@@ -6,7 +6,7 @@ services:
   ui:
     networks:
       - network
-    build: 
+    build:
       context: ./ui
       dockerfile: Dockerfile
     container_name: ui
@@ -15,11 +15,11 @@ services:
     volumes:
       - ./ui:/usr/src/app/ui
       - /usr/src/app/ui/node_modules
-    
+
   api:
     networks:
       - network
-    build: 
+    build:
       context: ./api
       dockerfile: Dockerfile
     container_name: api
@@ -27,9 +27,26 @@ services:
     volumes:
       - ./api:/var/www/html/api
       - /var/www/html/api/vendor
-    command: >
-      sh -c "chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache && php-fpm"
-  
+    environment:
+      - DB_HOST=db
+      - DB_PORT=__DB_PORT__
+      - DB_DATABASE=${DB_DATABASE:-project_db}
+      - DB_USERNAME=${DB_USERNAME:-user}
+      - DB_PASSWORD=${DB_PASSWORD:-password}
+
+  db:
+    networks:
+      - network
+    image: __DB_IMAGE__
+    container_name: db
+    restart: always
+    environment:
+      __DB_ENV__
+    ports:
+      - "__DB_PORT__:__DB_PORT__"
+    volumes:
+      - db_data:/var/lib/backend/data
+
   webserver:
     networks:
       - network
@@ -42,4 +59,6 @@ services:
       - ./api:/var/www/html/api
       - ./infra/config/nginx/conf.d:/etc/nginx/conf.d
       - ./infra/config/nginx/error:/var/log/nginx
-    
+
+volumes:
+  db_data:

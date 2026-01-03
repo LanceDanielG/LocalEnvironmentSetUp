@@ -1,0 +1,36 @@
+{
+  "name": "automated-setup",
+  "version": "1.0.1",
+  "description": "A powerful, dynamic tool to scaffold full-stack development environments with Docker.",
+  "main": "setup.sh",
+  "bin": {
+    "automated-setup": "setup.sh"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scaffold",
+    "docker",
+    "fullstack",
+    "automation",
+    "cli"
+  ],
+  "author": "Dxcode",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LanceDanielG/LocalEnvironmentSetUp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LanceDanielG/LocalEnvironmentSetUp/issues"
+  },
+  "homepage": "https://github.com/LanceDanielG/LocalEnvironmentSetUp#readme",
+  "files": [
+    "setup.sh",
+    "compose_file/",
+    "config/",
+    "docker_file/",
+    "README.md"
+  ]
+}

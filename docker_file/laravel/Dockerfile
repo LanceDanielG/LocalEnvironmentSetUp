@@ -15,7 +15,7 @@ RUN docker-php-ext-install pdo_mysql
 # Clean up unnecessary files
 RUN apk del gcc make autoconf libc-dev linux-headers
 
-WORKDIR /var/www/html
+WORKDIR /var/www/html/api
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
