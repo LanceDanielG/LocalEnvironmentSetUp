@@ -16,6 +16,8 @@ jobs:
           node-version: "22.x"
           registry-url: "https://registry.npmjs.org"
       - run: npm install
+      - name: Set Package Name for NPM
+        run: npm pkg set name=@dx.code_/envy
       - name: Publish to NPM
         run: npm publish --provenance --access public
         env:
@@ -33,6 +35,10 @@ jobs:
           node-version: "22.x"
           registry-url: "https://npm.pkg.github.com"
       - run: npm install
+      - name: Set Package Name and Registry for GitHub
+        run: |
+          npm pkg set name=@lancedanielg/envy
+          npm pkg set publishConfig.registry=https://npm.pkg.github.com
       - name: Publish to GitHub Packages
         run: npm publish
         env:
