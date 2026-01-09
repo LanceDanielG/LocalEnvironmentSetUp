@@ -1,6 +1,6 @@
 {
-  "name": "@lancedanielg/envy",
-  "version": "0.1.5",
+  "name": "@dx.code_/envy",
+  "version": "0.1.6",
   "description": "A powerful, dynamic tool to scaffold full-stack development environments with Docker.",
   "main": "setup.sh",
   "bin": {
