@@ -1,10 +1,14 @@
 {
-  "name": "automated-setup",
-  "version": "1.0.1",
+  "name": "@lancedanielg/envy",
+  "version": "0.1.2",
   "description": "A powerful, dynamic tool to scaffold full-stack development environments with Docker.",
   "main": "setup.sh",
   "bin": {
-    "automated-setup": "setup.sh"
+    "envy": "setup.sh"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

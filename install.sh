@@ -2,11 +2,11 @@
 set -e
 
 # Configuration
-INSTALL_DIR="/usr/local/share/automated-setup"
+INSTALL_DIR="/usr/local/share/envy"
 BIN_DIR="/usr/local/bin"
-COMMAND_NAME="auto-setup"
+COMMAND_NAME="envy"
 
-echo "🚀 Installing Automated Setup Tool globally..."
+echo "🚀 Installing Envy globally..."
 
 # Check for sudo
 if [ "$EUID" -ne 0 ]; then
